@@ -40,7 +40,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n1 = new NodeSequence(2);
       n2 = Require();
       n1.addNode(n2);
-     n4 =  jj_consume_token(DOT);
+      jj_consume_token(DOT);
       n3 = JTBToolkit.makeNodeToken(n4);
       n1.addNode(n3);
       n0.addNode(n1);
@@ -82,11 +82,11 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   NodeList n2 = new NodeList();
   NodeToken n3 = null;
   Token n4 = null;
-    n1 = jj_consume_token(REQUERE);
+    jj_consume_token(REQUERE);
     n0 = JTBToolkit.makeNodeToken(n1);
     label_3:
     while (true) {
-      n4 = jj_consume_token(IDENTIFIER);
+      jj_consume_token(IDENTIFIER);
       n3 = JTBToolkit.makeNodeToken(n4);
       n2.addNode(n3);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -143,7 +143,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
           n3 = new NodeChoice(n4, 0, 2);
         break;
       case MINUS:
-        n7 = jj_consume_token(MINUS);
+        jj_consume_token(MINUS);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 2);
         break;
@@ -246,7 +246,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n0 = new NodeChoice(n1, 0, 3);
       break;
     case INTEGER_LITERAL:
-      n8 = jj_consume_token(INTEGER_LITERAL);
+      jj_consume_token(INTEGER_LITERAL);
       n7 = JTBToolkit.makeNodeToken(n8);
       n0 = new NodeChoice(n7, 1, 3);
       break;
@@ -348,7 +348,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case GT:
-        n5 = jj_consume_token(GT);
+        jj_consume_token(GT);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 2);
         break;
@@ -430,7 +430,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   VariableName n3 = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INTEGER_LITERAL:
-      n2 = jj_consume_token(INTEGER_LITERAL);
+      jj_consume_token(INTEGER_LITERAL);
       n1 = JTBToolkit.makeNodeToken(n2);
       n0 = new NodeChoice(n1, 0, 2);
       break;
@@ -497,10 +497,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   StatementExpression n6 = null;
   NodeToken n7 = null;
   Token n8 = null;
-    n1 = jj_consume_token(WHILE);
+    jj_consume_token(WHILE);
     n0 = JTBToolkit.makeNodeToken(n1);
     n2 = RelationalExpression();
-    n4 = jj_consume_token(DO);
+    jj_consume_token(DO);
     n3 = JTBToolkit.makeNodeToken(n4);
     label_10:
     while (true) {
@@ -519,7 +519,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n5.addNode(n6);
     }
     n5.nodes.trimToSize();
-    n8 = jj_consume_token(STOP);
+    jj_consume_token(STOP);
     n7 = JTBToolkit.makeNodeToken(n8);
     {if (true) return new WhileExpression(n0, n2, n3, n5, n7);}
     throw new Error("Missing return statement in function");
@@ -535,13 +535,13 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   MathExpression n5 = null;
   NodeToken n6 = null;
   Token n7 = null;
-    n1 = jj_consume_token(DEF);
+    jj_consume_token(DEF);
     n0 = JTBToolkit.makeNodeToken(n1);
     n2 = VariableName();
-    n4 = jj_consume_token(ASSIGN);
+    jj_consume_token(ASSIGN);
     n3 = JTBToolkit.makeNodeToken(n4);
     n5 = MathExpression();
-    n7 = jj_consume_token(DOT);
+    jj_consume_token(DOT);
     n6 = JTBToolkit.makeNodeToken(n7);
     {if (true) return new VariableDeclaration(n0, n2, n3, n5, n6);}
     throw new Error("Missing return statement in function");
@@ -557,10 +557,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   NodeToken n4 = null;
   Token n5 = null;
     n0 = VariableName();
-    n2 = jj_consume_token(ASSIGN);
+    jj_consume_token(ASSIGN);
     n1 = JTBToolkit.makeNodeToken(n2);
     n3 = MathExpression();
-    n5 = jj_consume_token(DOT);
+    jj_consume_token(DOT);
     n4 = JTBToolkit.makeNodeToken(n5);
     {if (true) return new VariableAssign(n0, n1, n3, n4);}
     throw new Error("Missing return statement in function");
@@ -570,7 +570,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   // --- JTB generated node declarations ---
   NodeToken n0 = null;
   Token n1 = null;
-    n1 = jj_consume_token(IDENTIFIER);
+    jj_consume_token(IDENTIFIER);
     n0 = JTBToolkit.makeNodeToken(n1);
     {if (true) return new VariableName(n0);}
     throw new Error("Missing return statement in function");
@@ -600,15 +600,15 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   Token n17 = null;
   NodeToken n18 = null;
   Token n19 = null;
-   n1 =  jj_consume_token(IDENTIFIER);
+    jj_consume_token(IDENTIFIER);
     n0 = JTBToolkit.makeNodeToken(n1);
     label_11:
     while (true) {
       n3 = new NodeSequence(2);
-      n5 = jj_consume_token(COLON);
+      jj_consume_token(COLON);
       n4 = JTBToolkit.makeNodeToken(n5);
       n3.addNode(n4);
-      n7 = jj_consume_token(IDENTIFIER);
+      jj_consume_token(IDENTIFIER);
       n6 = JTBToolkit.makeNodeToken(n7);
       n3.addNode(n6);
       n2.addNode(n3);
@@ -622,7 +622,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       }
     }
     n2.nodes.trimToSize();
-    n9 = jj_consume_token(30);
+    jj_consume_token(30);
     n8 = JTBToolkit.makeNodeToken(n9);
     n10 = MathExpression();
     label_12:
@@ -644,9 +644,9 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n11.addNode(n12);
     }
     n11.nodes.trimToSize();
-    n17 = jj_consume_token(31);
+    jj_consume_token(31);
     n16 = JTBToolkit.makeNodeToken(n17);
-    n19 = jj_consume_token(DOT);
+    jj_consume_token(DOT);
     n18 = JTBToolkit.makeNodeToken(n19);
     {if (true) return new JavaStaticMethods(n0, n2, n8, n10, n11, n16, n18);}
     throw new Error("Missing return statement in function");
