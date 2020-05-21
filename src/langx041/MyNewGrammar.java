@@ -3,27 +3,11 @@ package langx041;
 
 import langx041.syntaxtree.*;
 import langx041.visitor.*;
-import java.io.StringReader;
+import langx041.interpreter.*;
 import langx041.syntaxtree.*;
 
 
 public class MyNewGrammar implements MyNewGrammarConstants {
-
-  /* --- User code --- */
-
-  public static void main(String args[]) {
-    try {
-      Start start = new MyNewGrammar(new StringReader("require java lang.\u005cn" + "def var = 13.\u005cn" + "while var > 0  do\u005cn" + "System:out:println( var ).\u005cn" + "var = var - 1.\u005cn" + "stop.\u005cn")).Start();
-      DepthFirstVoidVisitor v = new MyVisitor();
-      start.accept(v);
-      System.out.println("Right! No errors found !");
-    }
-    catch (Exception e) {
-      System.out.println("Oops.");
-      System.out.println(e);
-      e.printStackTrace();
-    }
-  }
 
 /* Grammar starts from here */
   final public Start Start() throws ParseException {
@@ -40,7 +24,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n1 = new NodeSequence(2);
       n2 = Require();
       n1.addNode(n2);
-      jj_consume_token(DOT);
+      n4 = jj_consume_token(DOT);
       n3 = JTBToolkit.makeNodeToken(n4);
       n1.addNode(n3);
       n0.addNode(n1);
@@ -82,11 +66,11 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   NodeList n2 = new NodeList();
   NodeToken n3 = null;
   Token n4 = null;
-    jj_consume_token(REQUERE);
+    n1 = jj_consume_token(REQUERE);
     n0 = JTBToolkit.makeNodeToken(n1);
     label_3:
     while (true) {
-      jj_consume_token(IDENTIFIER);
+      n4 = jj_consume_token(IDENTIFIER);
       n3 = JTBToolkit.makeNodeToken(n4);
       n2.addNode(n3);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -138,12 +122,12 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case PLUS:
-        jj_consume_token(PLUS);
+        n5 = jj_consume_token(PLUS);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 2);
         break;
       case MINUS:
-        jj_consume_token(MINUS);
+        n7 = jj_consume_token(MINUS);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 2);
         break;
@@ -191,17 +175,17 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MUL:
-        jj_consume_token(MUL);
+        n5 = jj_consume_token(MUL);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 3);
         break;
       case DIV:
-        jj_consume_token(DIV);
+        n7 = jj_consume_token(DIV);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 3);
         break;
       case MOD:
-        jj_consume_token(MOD);
+        n9 = jj_consume_token(MOD);
           n8 = JTBToolkit.makeNodeToken(n9);
           n3 = new NodeChoice(n8, 2, 3);
         break;
@@ -235,18 +219,18 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 30:
       n1 = new NodeSequence(3);
-      jj_consume_token(30);
+      n3 = jj_consume_token(30);
       n2 = JTBToolkit.makeNodeToken(n3);
       n1.addNode(n2);
       n4 = MathExpression();
       n1.addNode(n4);
-      jj_consume_token(31);
+      n6 = jj_consume_token(31);
       n5 = JTBToolkit.makeNodeToken(n6);
       n1.addNode(n5);
       n0 = new NodeChoice(n1, 0, 3);
       break;
     case INTEGER_LITERAL:
-      jj_consume_token(INTEGER_LITERAL);
+      n8 = jj_consume_token(INTEGER_LITERAL);
       n7 = JTBToolkit.makeNodeToken(n8);
       n0 = new NodeChoice(n7, 1, 3);
       break;
@@ -298,12 +282,12 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case EQ:
-        jj_consume_token(EQ);
+        n5 = jj_consume_token(EQ);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 2);
         break;
       case NE:
-        jj_consume_token(NE);
+        n7 = jj_consume_token(NE);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 2);
         break;
@@ -348,12 +332,12 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case GT:
-        jj_consume_token(GT);
+        n5 = jj_consume_token(GT);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 2);
         break;
       case GE:
-        jj_consume_token(GE);
+        n7 = jj_consume_token(GE);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 2);
         break;
@@ -398,12 +382,12 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n2 = new NodeSequence(2);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LT:
-        jj_consume_token(LT);
+        n5 = jj_consume_token(LT);
           n4 = JTBToolkit.makeNodeToken(n5);
           n3 = new NodeChoice(n4, 0, 2);
         break;
       case LE:
-        jj_consume_token(LE);
+        n7 = jj_consume_token(LE);
           n6 = JTBToolkit.makeNodeToken(n7);
           n3 = new NodeChoice(n6, 1, 2);
         break;
@@ -424,25 +408,8 @@ public class MyNewGrammar implements MyNewGrammarConstants {
 
   final public UnaryRelational UnaryRelational() throws ParseException {
   // --- JTB generated node declarations ---
-  NodeChoice n0 = null;
-  NodeToken n1 = null;
-  Token n2 = null;
-  VariableName n3 = null;
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case INTEGER_LITERAL:
-      jj_consume_token(INTEGER_LITERAL);
-      n1 = JTBToolkit.makeNodeToken(n2);
-      n0 = new NodeChoice(n1, 0, 2);
-      break;
-    case IDENTIFIER:
-      n3 = VariableName();
-      n0 = new NodeChoice(n3, 1, 2);
-      break;
-    default:
-      jj_la1[14] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
+  MathExpression n0 = null;
+    n0 = MathExpression();
     {if (true) return new UnaryRelational(n0);}
     throw new Error("Missing return statement in function");
   }
@@ -458,10 +425,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   StatementExpression n6 = null;
   NodeToken n7 = null;
   Token n8 = null;
-    jj_consume_token(IF);
+    n1 = jj_consume_token(IF);
     n0 = JTBToolkit.makeNodeToken(n1);
     n2 = RelationalExpression();
-    jj_consume_token(DO);
+    n4 = jj_consume_token(DO);
     n3 = JTBToolkit.makeNodeToken(n4);
     label_9:
     while (true) {
@@ -473,14 +440,14 @@ public class MyNewGrammar implements MyNewGrammarConstants {
         ;
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[14] = jj_gen;
         break label_9;
       }
       n6 = StatementExpression();
       n5.addNode(n6);
     }
     n5.nodes.trimToSize();
-    jj_consume_token(STOP);
+    n8 = jj_consume_token(STOP);
     n7 = JTBToolkit.makeNodeToken(n8);
     {if (true) return new IfExpression(n0, n2, n3, n5, n7);}
     throw new Error("Missing return statement in function");
@@ -497,10 +464,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   StatementExpression n6 = null;
   NodeToken n7 = null;
   Token n8 = null;
-    jj_consume_token(WHILE);
+    n1 = jj_consume_token(WHILE);
     n0 = JTBToolkit.makeNodeToken(n1);
     n2 = RelationalExpression();
-    jj_consume_token(DO);
+    n4 = jj_consume_token(DO);
     n3 = JTBToolkit.makeNodeToken(n4);
     label_10:
     while (true) {
@@ -512,14 +479,14 @@ public class MyNewGrammar implements MyNewGrammarConstants {
         ;
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[15] = jj_gen;
         break label_10;
       }
       n6 = StatementExpression();
       n5.addNode(n6);
     }
     n5.nodes.trimToSize();
-    jj_consume_token(STOP);
+    n8 = jj_consume_token(STOP);
     n7 = JTBToolkit.makeNodeToken(n8);
     {if (true) return new WhileExpression(n0, n2, n3, n5, n7);}
     throw new Error("Missing return statement in function");
@@ -535,13 +502,13 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   MathExpression n5 = null;
   NodeToken n6 = null;
   Token n7 = null;
-    jj_consume_token(DEF);
+    n1 = jj_consume_token(DEF);
     n0 = JTBToolkit.makeNodeToken(n1);
     n2 = VariableName();
-    jj_consume_token(ASSIGN);
+    n4 = jj_consume_token(ASSIGN);
     n3 = JTBToolkit.makeNodeToken(n4);
     n5 = MathExpression();
-    jj_consume_token(DOT);
+    n7 = jj_consume_token(DOT);
     n6 = JTBToolkit.makeNodeToken(n7);
     {if (true) return new VariableDeclaration(n0, n2, n3, n5, n6);}
     throw new Error("Missing return statement in function");
@@ -557,10 +524,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   NodeToken n4 = null;
   Token n5 = null;
     n0 = VariableName();
-    jj_consume_token(ASSIGN);
+    n2 = jj_consume_token(ASSIGN);
     n1 = JTBToolkit.makeNodeToken(n2);
     n3 = MathExpression();
-    jj_consume_token(DOT);
+    n5 = jj_consume_token(DOT);
     n4 = JTBToolkit.makeNodeToken(n5);
     {if (true) return new VariableAssign(n0, n1, n3, n4);}
     throw new Error("Missing return statement in function");
@@ -570,7 +537,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   // --- JTB generated node declarations ---
   NodeToken n0 = null;
   Token n1 = null;
-    jj_consume_token(IDENTIFIER);
+    n1 = jj_consume_token(IDENTIFIER);
     n0 = JTBToolkit.makeNodeToken(n1);
     {if (true) return new VariableName(n0);}
     throw new Error("Missing return statement in function");
@@ -600,15 +567,15 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   Token n17 = null;
   NodeToken n18 = null;
   Token n19 = null;
-    jj_consume_token(IDENTIFIER);
+    n1 = jj_consume_token(IDENTIFIER);
     n0 = JTBToolkit.makeNodeToken(n1);
     label_11:
     while (true) {
       n3 = new NodeSequence(2);
-      jj_consume_token(COLON);
+      n5 = jj_consume_token(COLON);
       n4 = JTBToolkit.makeNodeToken(n5);
       n3.addNode(n4);
-      jj_consume_token(IDENTIFIER);
+      n7 = jj_consume_token(IDENTIFIER);
       n6 = JTBToolkit.makeNodeToken(n7);
       n3.addNode(n6);
       n2.addNode(n3);
@@ -617,12 +584,12 @@ public class MyNewGrammar implements MyNewGrammarConstants {
         ;
         break;
       default:
-        jj_la1[17] = jj_gen;
+        jj_la1[16] = jj_gen;
         break label_11;
       }
     }
     n2.nodes.trimToSize();
-    jj_consume_token(30);
+    n9 = jj_consume_token(30);
     n8 = JTBToolkit.makeNodeToken(n9);
     n10 = MathExpression();
     label_12:
@@ -632,11 +599,11 @@ public class MyNewGrammar implements MyNewGrammarConstants {
         ;
         break;
       default:
-        jj_la1[18] = jj_gen;
+        jj_la1[17] = jj_gen;
         break label_12;
       }
       n12 = new NodeSequence(2);
-      jj_consume_token(32);
+      n14 = jj_consume_token(32);
       n13 = JTBToolkit.makeNodeToken(n14);
       n12.addNode(n13);
       n15 = MathExpression();
@@ -644,9 +611,9 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n11.addNode(n12);
     }
     n11.nodes.trimToSize();
-    jj_consume_token(31);
+    n17 = jj_consume_token(31);
     n16 = JTBToolkit.makeNodeToken(n17);
-    jj_consume_token(DOT);
+    n19 = jj_consume_token(DOT);
     n18 = JTBToolkit.makeNodeToken(n19);
     {if (true) return new JavaStaticMethods(n0, n2, n8, n10, n11, n16, n18);}
     throw new Error("Missing return statement in function");
@@ -666,7 +633,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n0 = new NodeChoice(n1, 0, 5);
       break;
     default:
-      jj_la1[19] = jj_gen;
+      jj_la1[18] = jj_gen;
       if (jj_2_1(2)) {
         n2 = VariableAssign();
       n0 = new NodeChoice(n2, 1, 5);
@@ -685,7 +652,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       n0 = new NodeChoice(n5, 4, 5);
           break;
         default:
-          jj_la1[20] = jj_gen;
+          jj_la1[19] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -702,6 +669,11 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     finally { jj_save(0, xla); }
   }
 
+  private boolean jj_3R_14() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
   private boolean jj_3R_13() {
     if (jj_3R_14()) return true;
     if (jj_scan_token(ASSIGN)) return true;
@@ -710,11 +682,6 @@ public class MyNewGrammar implements MyNewGrammarConstants {
 
   private boolean jj_3_1() {
     if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_14() {
-    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -729,7 +696,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;
   private int jj_gen;
-  final private int[] jj_la1 = new int[21];
+  final private int[] jj_la1 = new int[20];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -737,10 +704,10 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0x8000980,0x8000000,0x300000,0x300000,0x1c00000,0x1c00000,0x4c000000,0x84000,0x84000,0x28000,0x28000,0x50000,0x50000,0xc000000,0x8000980,0x8000980,0x2000,0x0,0x800,0x8000180,};
+      jj_la1_0 = new int[] {0x40,0x8000980,0x8000000,0x300000,0x300000,0x1c00000,0x1c00000,0x4c000000,0x84000,0x84000,0x28000,0x28000,0x50000,0x50000,0x8000980,0x8000980,0x2000,0x0,0x800,0x8000180,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[1];
   private boolean jj_rescan = false;
@@ -757,7 +724,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -772,7 +739,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -783,7 +750,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -794,7 +761,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -804,7 +771,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -814,7 +781,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -931,7 +898,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 21; i++) {
+    for (int i = 0; i < 20; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -1003,17 +970,7 @@ public class MyNewGrammar implements MyNewGrammarConstants {
     JJCalls next;
   }
 
-}
-
-
-class MyVisitor extends DepthFirstVoidVisitor {
-
-  /* --- User code --- */
-
-  public void visit(NodeToken n) {
-    System.out.println("visit " + n.tokenImage);
-  }
-}
+                           }
 
 class JTBToolkit {
 

@@ -5,11 +5,11 @@ import langx041.visitor.*;
 
 public class UnaryRelational implements INode {
 
-  public NodeChoice f0;
+  public MathExpression f0;
 
   private static final long serialVersionUID = 1411L;
 
-  public UnaryRelational(final NodeChoice n0) {
+  public UnaryRelational(final MathExpression n0) {
     f0 = n0;
   }
 

@@ -11,38 +11,11 @@ package langx041;
 
 import langx041.syntaxtree.*;
 import langx041.visitor.*;
-import java.io.StringReader;
+import langx041.interpreter.*;
 import langx041.syntaxtree.*;
 
 
-public class MyNewGrammar {
-
-  /* --- User code --- */
-
-  public static void main(String args[]) {
-    try {
-      Start start = new MyNewGrammar(new StringReader("require java lang.\n" + "def var = 13.\n" + "while var > 0  do\n" + "System:out:println( var ).\n" + "var = var - 1.\n" + "stop.\n")).Start();
-      DepthFirstVoidVisitor v = new MyVisitor();
-      start.accept(v);
-      System.out.println("Right! No errors found !");
-    }
-    catch (Exception e) {
-      System.out.println("Oops.");
-      System.out.println(e);
-      e.printStackTrace();
-    }
-  }
-}
-
-
-class MyVisitor extends DepthFirstVoidVisitor {
-
-  /* --- User code --- */
-
-  public void visit(NodeToken n) {
-    System.out.println("visit " + n.tokenImage);
-  }
-}
+public class MyNewGrammar {}
 
 class JTBToolkit {
 
@@ -59,23 +32,23 @@ SKIP :
 | "\t"
 | "\n"
 | "\r"
-| < "\"" ( ~["\n", "\r"] )* ( "\n"| "\r"| "\r\n" ) >
+| < "#" ( ~["\n", "\r"] )* ( "\n"| "\r"| "\r\n" ) >
 }
 
 TOKEN :
 {
   < REQUERE : "require" >
 | < IF : "if" >
-| < WHILE : "while" >
+| < WHILE : "loop_if" >
 | < DO : "do" >
 | < STOP : "stop" >
-| < DEF : "def" >
+| < DEF : "let" >
 }
 
 TOKEN :
 {
   < DOT : "." >
-| < COLON : ":" >
+| < COLON : "::" >
 | < EQ : "==" >
 | < GT : ">" >
 | < LT : "<" >
@@ -408,20 +381,10 @@ RelationalLessExpression RelationalLessExpression() :
 UnaryRelational UnaryRelational() :
 {
   // --- JTB generated node declarations ---
-  NodeChoice n0 = null;
-  NodeToken n1 = null;
-  Token n2 = null;
-  VariableName n3 = null;
+  MathExpression n0 = null;
 }
 {
-  (
-    < INTEGER_LITERAL >
-    { n1 = JTBToolkit.makeNodeToken(n2); }
-    { n0 = new NodeChoice(n1, 0, 2); }
-  |
-    n3 = VariableName()
-    { n0 = new NodeChoice(n3, 1, 2); }
-  )
+  n0 = MathExpression()
   { return new UnaryRelational(n0); }
 }
 
@@ -468,7 +431,7 @@ WhileExpression WhileExpression() :
   Token n8 = null;
 }
 {
-  "while"
+  "loop_if"
   { n0 = JTBToolkit.makeNodeToken(n1); }
   n2 = RelationalExpression()
   "do"
@@ -496,7 +459,7 @@ VariableDeclaration VariableDeclaration() :
   Token n7 = null;
 }
 {
-  "def"
+  "let"
   { n0 = JTBToolkit.makeNodeToken(n1); }
   n2 = VariableName()
   "="
@@ -571,7 +534,7 @@ JavaStaticMethods JavaStaticMethods() :
   { n0 = JTBToolkit.makeNodeToken(n1); }
   (
     { n3 = new NodeSequence(2); }
-    ":"
+    "::"
     { n4 = JTBToolkit.makeNodeToken(n5); }
     { n3.addNode(n4); }
     < IDENTIFIER >

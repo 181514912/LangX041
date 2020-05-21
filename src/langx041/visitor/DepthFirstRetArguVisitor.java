@@ -188,8 +188,7 @@ public class DepthFirstRetArguVisitor<R, A> implements IRetArguVisitor<R, A> {
   @Override
   public R visit(final UnaryRelational n, final A argu) {
     R nRes = null;
-    // f0 -> . %0 < INTEGER_LITERAL >
-    // .. .. | %1 VariableName()
+    // f0 -> MathExpression()
     n.f0.accept(this, argu);
     return nRes;
   }
@@ -213,7 +212,7 @@ public class DepthFirstRetArguVisitor<R, A> implements IRetArguVisitor<R, A> {
   @Override
   public R visit(final WhileExpression n, final A argu) {
     R nRes = null;
-    // f0 -> "while"
+    // f0 -> "loop_if"
     n.f0.accept(this, argu);
     // f1 -> RelationalExpression()
     n.f1.accept(this, argu);
@@ -229,7 +228,7 @@ public class DepthFirstRetArguVisitor<R, A> implements IRetArguVisitor<R, A> {
   @Override
   public R visit(final VariableDeclaration n, final A argu) {
     R nRes = null;
-    // f0 -> "def"
+    // f0 -> "let"
     n.f0.accept(this, argu);
     // f1 -> VariableName()
     n.f1.accept(this, argu);
@@ -269,7 +268,7 @@ public class DepthFirstRetArguVisitor<R, A> implements IRetArguVisitor<R, A> {
     R nRes = null;
     // f0 -> < IDENTIFIER >
     n.f0.accept(this, argu);
-    // f1 -> ( #0 ":" #1 < IDENTIFIER > )+
+    // f1 -> ( #0 "::" #1 < IDENTIFIER > )+
     n.f1.accept(this, argu);
     // f2 -> "("
     n.f2.accept(this, argu);

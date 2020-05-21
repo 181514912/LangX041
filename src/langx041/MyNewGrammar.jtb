@@ -1,121 +1,204 @@
 /**
  * JTB template file created by SF JavaCC plugin 1.5.28+ wizard for JTB 1.4.0.2+ and JavaCC 1.5.0+
- */options{  static = false;  JTB_P = "langx041";
+ */
+options
+{
+  static = false;
+  JTB_P = "langx041";
   JDK_VERSION = "1.5"; // (default 1.5 - needs javacc.jar v4.x)
-}PARSER_BEGIN(MyNewGrammar)package langx041;
+}
 
+PARSER_BEGIN(MyNewGrammar)
+package langx041;
 import langx041.syntaxtree.*;
 import langx041.visitor.*;
-import java.io.StringReader;
+import langx041.interpreter.*;
 
-public class MyNewGrammar{  public static void main(String args [])  {    // System.out.println("Reading from standard input...");    // System.out.print("Enter an expression like \"1+(2+3)*var;\" :");    //new MyNewGrammar(System.in);    try    {      // Start start = MyNewGrammar.Start();
-      Start start = new MyNewGrammar(new StringReader(
-      "require java lang.\n" +
-      "def var = 13.\n" +
-      "while var > 0  do\n" +
-      "System:out:println( var ).\n" +
-      "var = var - 1.\n" +
-      "stop.\n"
-      )).Start();      DepthFirstVoidVisitor v = new MyVisitor();      start.accept(v);
-      System.out.println("Right! No errors found !");    }    catch (Exception e)    {      System.out.println("Oops.");      System.out.println(e);
-      e.printStackTrace();    }  }}class MyVisitor extends DepthFirstVoidVisitor{  public void visit(NodeToken n)  {    System.out.println("visit " + n.tokenImage);  }}PARSER_END(MyNewGrammar)SKIP :{  " "| "\t"| "\n"| "\r"
-| < "\"" (~["\n","\r"])* ("\n"|"\r"|"\r\n") >//| < "//" (~[ "\n", "\r" ])*
-//    (
-//      "\n"
-//    | "\r"
-//    | "\r\n"
-//    ) >
-//| < "/*" (~[ "*" ])* "*"
-//    (
-//      ~[ "/" ] (~[ "*" ])* "*"
-//    )*
-//    "/" >
+public class MyNewGrammar
+{
+}
+
+PARSER_END(MyNewGrammar)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| < "#" (~[ "\n", "\r" ])*
+    (
+      "\n"
+    | "\r"
+    | "\r\n"
+    ) >
 }
 
 TOKEN : /* KEYWORDS */
-{  < REQUERE: "require" >
-| < IF: "if" >
-| < WHILE: "while" >
-| < DO: "do" >
-| < STOP: "stop" >
-| < DEF: "def" >
+{
+  < REQUERE : "require" >
+| < IF : "if" >
+| < WHILE : "loop_if" >
+| < DO : "do" >
+| < STOP : "stop" >
+| < DEF : "let" >
 }
 
 TOKEN : /* SYMBOLS */
-{  < DOT: "." >
-| < COLON: ":" >
-| < EQ: "==" >
-| < GT: ">" >
-| < LT: "<" >
-| < GE: ">=" >
-| < LE: "<=" >
-| < NE: "!=" >
-| < PLUS: "+" >
-| < MINUS: "-" >
-| < MUL: "*" >
-| < DIV: "/" >
-| < MOD: "%" >
-| < ASSIGN: "=" >
-} TOKEN : /* LITERALS */{  < INTEGER_LITERAL : ["1"-"9"] (["0"-"9"])* | "0" >//    < DECIMAL_LITERAL > ([ "l", "L" ])?
-//  | < HEX_LITERAL > ([ "l", "L" ])?
-//  | < OCTAL_LITERAL > ([ "l", "L" ])? 
-//    >
-//| < #DECIMAL_LITERAL : [ "1"-"9" ] ([ "0"-"9" ])* >
-//| < #HEX_LITERAL : "0" [ "x", "X" ] ([ "0"-"9", "a"-"f", "A"-"F" ])+ >
-//| < #OCTAL_LITERAL : "0" ([ "0"-"7" ])* >
-}TOKEN : /* IDENTIFIERS */{  < IDENTIFIER :    < LETTER >    (      < LETTER >    | < DIGIT >    )* >| < #LETTER : [ "_", "a"-"z", "A"-"Z" ] >| < #DIGIT : [ "0"-"9" ] >}
+{
+  < DOT : "." >
+| < COLON : "::" >
+| < EQ : "==" >
+| < GT : ">" >
+| < LT : "<" >
+| < GE : ">=" >
+| < LE : "<=" >
+| < NE : "!=" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < MUL : "*" >
+| < DIV : "/" >
+| < MOD : "%" >
+| < ASSIGN : "=" >
+}
 
-/* Grammar starts from here */void Start() :{}{  (    Require() "."
+TOKEN : /* LITERALS */
+{
+  < INTEGER_LITERAL :
+    [ "1"-"9" ] ([ "0"-"9" ])*
+  | "0" >
+}
+
+TOKEN : /* IDENTIFIERS */
+{
+  < IDENTIFIER :
+    < LETTER >
+    (
+      < LETTER >
+    | < DIGIT >
+    )* >
+| < #LETTER : [ "_", "a"-"z", "A"-"Z" ] >
+| < #DIGIT : [ "0"-"9" ] >
+}
+
+/* Grammar starts from here */
+
+void Start() :
+{}
+{
+  (
+    Require() "."
   )+
-  (    StatementExpression()
-  )*}
+  (
+    StatementExpression()
+  )*
+}
 
-void Require(): { }
-{  "require"
-  (    < IDENTIFIER >
+void Require() :
+{}
+{
+  "require" 
+  (
+  < IDENTIFIER >
   )+
 }
 
-/* Math Operations */void MathExpression() :{}{  AdditiveExpression()}void AdditiveExpression() :{}{  MultiplicativeExpression()  (    (      "+"    | "-"    )    MultiplicativeExpression()  )*}void MultiplicativeExpression() :{}{  UnaryExpression()  (    (      "*"    | "/"    | "%"    )    UnaryExpression()  )*}void UnaryExpression() :{}{  "(" MathExpression() ")"| < INTEGER_LITERAL >| VariableName()}/* Relational Test */
-void RelationalExpression(): { }
+/* Math Operations */
+void MathExpression() :
+{}
+{
+  AdditiveExpression()
+}
+
+void AdditiveExpression() :
+{}
+{
+  MultiplicativeExpression()
+  (
+    (
+      "+"
+    | "-"
+    )
+    MultiplicativeExpression()
+  )*
+}
+
+void MultiplicativeExpression() :
+{}
+{
+  UnaryExpression()
+  (
+    (
+      "*"
+    | "/"
+    | "%"
+    )
+    UnaryExpression()
+  )*
+}
+
+void UnaryExpression() :
+{}
+{
+  "(" MathExpression() ")"
+| < INTEGER_LITERAL >
+| VariableName()
+}
+
+/* Relational Test */
+void RelationalExpression() :
+{}
 {
   RelationalEqualityExpression()
 }
 
-void RelationalEqualityExpression(): { }
+void RelationalEqualityExpression() :
+{}
 {
   RelationalGreaterExpression()
-  (    (      "==" | "!="
+  (
+    (
+      "=="
+    | "!="
     )
     RelationalGreaterExpression()
   )*
 }
 
-void RelationalGreaterExpression(): { }
+void RelationalGreaterExpression() :
+{}
 {
   RelationalLessExpression()
   (
-    (      ">" | ">="
+    (
+      ">"
+    | ">="
     )
     RelationalLessExpression()
   )*
 }
 
-void RelationalLessExpression(): { }
+void RelationalLessExpression() :
+{}
 {
   UnaryRelational()
-  (    (      "<" | "<="
+  (
+    (
+      "<"
+    | "<="
     )
     UnaryRelational()
   )*
 }
 
-void UnaryRelational(): { }
+void UnaryRelational() :
+{}
 {
-  < INTEGER_LITERAL > | VariableName()
+	MathExpression()
 }
 
-void IfExpression(): { }
+void IfExpression() :
+{}
 {
   "if" RelationalExpression() "do"
   (
@@ -124,46 +207,57 @@ void IfExpression(): { }
   "stop"
 }
 
-void WhileExpression(): { }
+void WhileExpression() :
+{}
 {
-  "while" RelationalExpression() "do"
+  "loop_if" RelationalExpression() "do"
   (
     StatementExpression()
   )*
   "stop"
 }
 
-void VariableDeclaration(): { }
+void VariableDeclaration() :
+{}
 {
-  "def" VariableName() "=" MathExpression() "."
+  "let" VariableName() "=" MathExpression() "."
 }
 
 /* variable declaration is done using "def" keyword */
-void VariableAssign(): { }
+void VariableAssign() :
+{}
 {
   VariableName() "=" MathExpression() "."
 }
 
-void VariableName(): { }
+void VariableName() :
+{}
 {
   < IDENTIFIER >
 }
 
 /* ClassName:[Method|Members]( number ) e.g. System:out:println(4) */
 /* changing dot by colon */
-void JavaStaticMethods(): { }
+void JavaStaticMethods() :
+{}
 {
-  < IDENTIFIER >	/* Class Name */
-	(
-	  ":" < IDENTIFIER > /* Member or Method */
-	)+
-	"(" MathExpression() ( "," MathExpression() )* ")" "."
+  < IDENTIFIER > 	/* Class Name */
+  (
+  "::" < IDENTIFIER > /* Member or Method */
+  )+ 
+  "(" MathExpression()
+  (
+    "," MathExpression()
+  )*
+  ")" "."
 }
 
-void StatementExpression(): { }
+void StatementExpression() :
+{}
 {
   VariableDeclaration()
-| LOOKAHEAD(2) VariableAssign()
+| LOOKAHEAD(2)
+  VariableAssign()
 | JavaStaticMethods()
 | IfExpression()
 | WhileExpression()

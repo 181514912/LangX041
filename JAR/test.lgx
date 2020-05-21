@@ -1,0 +1,14 @@
+# program to print (even numbers from 0 to 50) - 6
+require java lang.
+
+let var = 11.
+var = 0.
+
+loop_if var < 50  do
+	let tmp = 3.
+	if var%2 == 0 do
+		System::out::println( var - tmp * 2 ).
+	stop	# if ends
+	var = var + 1 .
+stop	# loop ends
+

@@ -152,8 +152,7 @@ public class DepthFirstVoidArguVisitor<A> implements IVoidArguVisitor<A> {
 
   @Override
   public void visit(final UnaryRelational n, final A argu) {
-    // f0 -> . %0 < INTEGER_LITERAL >
-    // .. .. | %1 VariableName()
+    // f0 -> MathExpression()
     n.f0.accept(this, argu);
   }
 
@@ -173,7 +172,7 @@ public class DepthFirstVoidArguVisitor<A> implements IVoidArguVisitor<A> {
 
   @Override
   public void visit(final WhileExpression n, final A argu) {
-    // f0 -> "while"
+    // f0 -> "loop_if"
     n.f0.accept(this, argu);
     // f1 -> RelationalExpression()
     n.f1.accept(this, argu);
@@ -187,7 +186,7 @@ public class DepthFirstVoidArguVisitor<A> implements IVoidArguVisitor<A> {
 
   @Override
   public void visit(final VariableDeclaration n, final A argu) {
-    // f0 -> "def"
+    // f0 -> "let"
     n.f0.accept(this, argu);
     // f1 -> VariableName()
     n.f1.accept(this, argu);
@@ -221,7 +220,7 @@ public class DepthFirstVoidArguVisitor<A> implements IVoidArguVisitor<A> {
   public void visit(final JavaStaticMethods n, final A argu) {
     // f0 -> < IDENTIFIER >
     n.f0.accept(this, argu);
-    // f1 -> ( #0 ":" #1 < IDENTIFIER > )+
+    // f1 -> ( #0 "::" #1 < IDENTIFIER > )+
     n.f1.accept(this, argu);
     // f2 -> "("
     n.f2.accept(this, argu);
