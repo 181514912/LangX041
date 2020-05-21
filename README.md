@@ -82,17 +82,17 @@ Execute the **JAR** file using the command `java -jar langx041.jar test.lgx`. Th
 - Make sure to pass the proper path of the source file in the argument. In the sample shown both the **JAR** and **test.lgx** are present in the same folder
 - The above code is shown just to highlight the syntax and features of the language. It can further be optimized.
 
-## Digging deep
-Any language has four main parts
+## Digging deeper
+Tokens and grammars are the core of any language. They are used in the following parts of the compiler in order to execute given source code. 
 
 - **Lexer** - Converts source code to tokens. Implemented using *regular expressions*. 
-- **Parser** - Converts tokens into nodes (syntax trees).
+- **Parser** - Converts tokens into nodes (syntax trees) according to the grammar.
 - **Interpreter** - Responsible for executing the generated nodes.
 - **Runtime** - Can be procedural, class based, prototype based or functional.
 
 In the design of LangX041, [JavaCC](https://en.wikipedia.org/wiki/JavaCC) is used as a lexar and parser generator. It is similar to yacc (another parser) in that it generates a parser from a formal grammar written in EBNF notation. It generates top-down parser, which limits it to the LL(K) class of grammar. Here LL(2) grammar is used for generating syntax tree using **JTB***(Java Tree Builder)*. Visit the official website of [JavaCC](https://javacc.org/) for more information.
 
-Java Reflection is used for making an interpreter of the language. The grammar and tokens of the language can be found in `\src\langx041\MyNewGrammar.jtb` file.
+Java Reflection is used for making an interpreter of the language. The grammar and tokens of the language can be found in `\src\langx041\MyNewGrammar.jtb` file. *Eclipse IDE* has been used for the development purpose. See this [link](http://eclipse-javacc.sourceforge.net/) to know about the configuration of JavaCC in Eclipse
 
 A new language can be designed in many languages e.g. Ruby (using Racc parser), Python (using Ply parser), Java  (using JavaCC parser), C++, etc. There are also many lexar available e.g. Rex for Ruby, JFlex for Java, Ragel, etc. The use of Java for the design of LangX041 is just a choice. If a bug is found make sure to report.
 
