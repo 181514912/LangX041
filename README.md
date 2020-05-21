@@ -90,7 +90,7 @@ Tokens and grammars are the core of any language. They are used in the following
 - **Interpreter** - Responsible for executing the generated nodes.
 - **Runtime** - Can be procedural, class based, prototype based or functional.
 
-In the design of LangX041, [JavaCC](https://en.wikipedia.org/wiki/JavaCC) is used as a lexar and parser generator. It is similar to yacc (another parser) in that it generates a parser from a formal grammar written in EBNF notation. It generates top-down parser, which limits it to the LL(K) class of grammar. Here LL(2) grammar is used for generating syntax tree using **JTB***(Java Tree Builder)*. Visit the official website of [JavaCC](https://javacc.org/) for more information.
+In the design of LangX041, [JavaCC](https://en.wikipedia.org/wiki/JavaCC) is used as a lexar and parser generator. It is similar to yacc (another parser) in that it generates a parser from a formal grammar written in EBNF notation. It generates top-down parser, which limits it to the LL(K) class of grammar. Here LL(2) grammar is used for generating syntax tree using **JTB** *(Java Tree Builder)*. Visit the official website of [JavaCC](https://javacc.org/) for more information.
 
 Java Reflection is used for making an interpreter of the language. The grammar and tokens of the language can be found in `\src\langx041\MyNewGrammar.jtb` file. *Eclipse IDE* has been used for the development purpose. See this [link](http://eclipse-javacc.sourceforge.net/) to know about the configuration of JavaCC in Eclipse
 
