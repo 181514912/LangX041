@@ -15,7 +15,7 @@ LangX041 is a small programing language (nano-programing language) with syntax i
 - **Looping** - Loop can be created using the keyword `loop_if`. The syntax is as shown.
     ```
         loop_if 2 > 1 do
-            # do something >,<,==,>=,<=,!=
+            # do something
         stop
     ```
 - **Mathematical Operations** - Currently *addition*(`+`), *subtraction*(`-`), *multiplication*(`*`), *division*(`/`) and *modulo*(`%`) operations can be performed on integers.
@@ -44,7 +44,7 @@ Consider the following code of finding (even numbers from 0 to 50 ) - 6. Save it
     loop_if var < 50  do
     	let tmp = 3.
     	if var%2 == 0 do
-    		System::out::println( var - tmp * 2 ).
+    	    System::out::println( var - tmp * 2 ).
     	stop	# if ends
     	var = var + 1 .
     stop	# loop ends
